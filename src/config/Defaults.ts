@@ -6,8 +6,8 @@ import { Node, YAMLSeq, default as YAML } from "yaml";
 import { randomBytes } from "crypto";
 import { DefaultDisallowedIpRanges } from "matrix-appservice-bridge";
 
-const serverName = "example.com";
-const hookshotWebhooksUrl = "https://example.com";
+const serverName = "localhost";
+const hookshotWebhooksUrl = "http://localhost:8008";
 
 export const DefaultConfigRoot: BridgeConfigRoot = {
   bridge: {

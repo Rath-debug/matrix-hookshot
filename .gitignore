@@ -4,6 +4,11 @@ node_modules/
 registration.yml
 tsconfig.tsbuildinfo
 public/
+code.txt
+decribe.txt
+problems.txt
+ai_prompt.txt
+/synapse
 
 .idea
 # Added by cargo

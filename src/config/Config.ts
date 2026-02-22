@@ -154,7 +154,7 @@ export class BridgeConfig {
   @configKey("Basic homeserver configuration")
   public readonly bridge: BridgeConfigBridge;
   @configKey(
-    `Cache options for large scale deployments. 
+    `Cache options for large scale deployments.
     For encryption to work, this must be configured.`,
     true,
   )

@@ -41,6 +41,9 @@ signing_key_path: "/data/localhost.signing.key"
 trusted_key_servers:
   - server_name: "matrix.org"
 
+app_service_config_files:
+  - /data/registration.yml
+
 enable_registration: true
 enable_registration_without_verification: true
 # vim:ft=yaml

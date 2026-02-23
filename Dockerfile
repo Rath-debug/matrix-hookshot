@@ -45,14 +45,13 @@ COPY --from=builder /src/lib ./
 COPY --from=builder /src/public ./public
 COPY --from=builder /src/assets ./assets
 
-# Create data directory and copy configuration templates
-RUN mkdir -p /data
-COPY config.railway.yml /data/config.yml
-COPY registration.sample.yml /data/registration.yml
+# Copy startup script and make it executable
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 
 ENV NODE_ENV="development"
 
 EXPOSE 9993
 EXPOSE 7775
 
-CMD ["node", "/bin/matrix-hookshot/App/BridgeApp.js", "/data/config.yml", "/data/registration.yml"]
+ENTRYPOINT ["/docker-entrypoint.sh"]

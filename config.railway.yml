@@ -1,0 +1,121 @@
+# Matrix Hookshot - Railway Configuration Template
+#
+# This is a template configuration for deploying to Railway.
+# Replace all ${VAR_NAME} placeholders with actual values in Railway environment variables.
+#
+# See RAILWAY_DEPLOYMENT.md for complete setup instructions.
+
+bridge:
+  # Matrix homeserver configuration
+  # Both domain and url are required
+  domain: ${MATRIX_DOMAIN}
+  url: ${MATRIX_URL}
+
+  # Port where the bridge listens
+  port: ${BRIDGE_PORT:-9993}
+
+  # Bind address (0.0.0.0 for Railway)
+  bindAddress: ${BRIDGE_BIND_ADDRESS:-0.0.0.0}
+
+  # Tokens - Generate these with: openssl rand -base64 32
+  as_token: ${MATRIX_AS_TOKEN}
+  hs_token: ${MATRIX_HS_TOKEN}
+
+  # Application service user ID
+  userId: ${MATRIX_USER_ID}
+
+  # Whether to encrypt media uploads
+  mediaEncryptionUrl: ${MEDIA_ENCRYPTION_URL:-}
+
+logging:
+  level: ${LOG_LEVEL:-info}
+  colorize: ${LOG_COLORIZE:-false}
+  # Optional: set to a file path to log to file instead of stdout
+  # LogFile: /data/hookshot.log
+
+# Path to private key for signing
+passFile: /data/passkey.pem
+
+# Listeners configuration
+listeners:
+  - port: 9001
+    bindAddress: 0.0.0.0
+    resources:
+      - widgets
+      - webhooks
+
+# Optional: Redis cache for performance
+# cache:
+#   redisUri: ${REDIS_URI}
+
+# =============================================================================
+# INTEGRATIONS
+# =============================================================================
+
+# Generic webhook support
+generic:
+  enabled: true
+  urlPrefix: ${WEBHOOK_URL_PREFIX}
+  allowJsTransformationFunctions: ${GENERIC_JS_TRANSFORMS:-true}
+  waitForComplete: ${GENERIC_WAIT_COMPLETE:-true}
+
+# GitHub integration
+github:
+  enabled: ${GITHUB_ENABLED:-false}
+  # Requires GitHub OAuth app setup
+  # See docs for details
+
+# GitLab integration
+gitlab:
+  enabled: ${GITLAB_ENABLED:-false}
+  # Requires GitLab OAuth app setup
+
+# JIRA integration
+jira:
+  enabled: ${JIRA_ENABLED:-false}
+  # Requires JIRA instance credentials
+
+# Figma integration
+figma:
+  enabled: ${FIGMA_ENABLED:-false}
+
+# OpenProject integration
+openproject:
+  enabled: ${OPENPROJECT_ENABLED:-false}
+
+# =============================================================================
+# WIDGETS
+# =============================================================================
+
+widgets:
+  # Public URL for widget assets
+  publicUrl: ${WIDGET_PUBLIC_URL}
+
+  # Auto-add setup widget on invite
+  roomSetupWidget:
+    addOnInvite: true
+
+  branding:
+    widgetTitle: ${WIDGET_TITLE:-Hookshot Configuration}
+
+  # OpenID overrides for widget auth
+  openIdOverrides:
+    "${MATRIX_DOMAIN}": "${MATRIX_URL}"
+
+# =============================================================================
+# OPTIONAL: ADVANCED CONFIGURATION
+# =============================================================================
+
+# Require HTTPS for webhook connections
+# feeds:
+#   requireSecure: ${FEEDS_REQUIRE_SECURE:-true}
+
+# Database configuration (if not using defaults)
+# db:
+#   engine: ${DB_ENGINE:-sqlite}
+#   connectionString: ${DB_CONNECTION_STRING}
+
+# Metrics configuration
+# metrics:
+#   enabled: true
+#   port: 7775

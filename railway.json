@@ -1,0 +1,27 @@
+{
+  "name": "matrix-hookshot",
+  "description": "A bridge between Matrix and multiple project management services",
+  "deploy": {
+    "startCommand": "node /bin/matrix-hookshot/App/BridgeApp.js /data/config.yml /data/registration.yml",
+    "healthcheckPath": "/health",
+    "healthcheckTimeout": 30
+  },
+  "volumes": {
+    "/data": "matrix-hookshot-data"
+  },
+  "ports": [
+    {
+      "containerPort": 9993,
+      "name": "bridge"
+    },
+    {
+      "containerPort": 7775,
+      "name": "metrics"
+    }
+  ],
+  "environmentVariables": {
+    "NODE_ENV": "production",
+    "LOG_LEVEL": "info",
+    "LOG_COLORIZE": "false"
+  }
+}

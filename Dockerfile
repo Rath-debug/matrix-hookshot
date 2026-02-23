@@ -47,7 +47,6 @@ COPY --from=builder /src/assets ./assets
 
 ENV NODE_ENV="development"
 
-VOLUME /data
 EXPOSE 9993
 EXPOSE 7775
 

@@ -1,40 +1,94 @@
 #!/bin/sh
-# Startup script for matrix-hookshot on Railway
-# Generates config from environment variables
 
-echo "=========================================="
-echo "matrix-hookshot Bridge - Startup"
-echo "=========================================="
-echo ""
-
-# Ensure data directory exists
 mkdir -p /data
-chmod 755 /data
 
-echo "Checking environment variables..."
-echo "  MATRIX_DOMAIN: ${MATRIX_DOMAIN:-NOT SET}"
-echo "  MATRIX_URL: ${MATRIX_URL:-NOT SET}"
-echo "  WEBHOOK_URL_PREFIX: ${WEBHOOK_URL_PREFIX:-NOT SET}"
-echo ""
+cat > /data/config.yml << 'EOF'
+bridge:
+  domain: synapse-production-ea3f.up.railway.app
+  url: https://synapse-production-ea3f.up.railway.app
+  port: 9993
+  bindAddress: 0.0.0.0
+  as_token: 7lo0XQLbKRd9PnEiiIv9AIzxg3+FpWmnpAUydjqQTN0=
+  hs_token: NP9HAIwk7G9j7j3Ui4Z0MXjeFuP/hOlVD9ZL0ZwdFB8=
+  userId: "@hookshot:synapse-production-ea3f.up.railway.app"
 
-# Check for required environment variables
-if [ -z "$MATRIX_DOMAIN" ] || [ -z "$MATRIX_URL" ] || [ -z "$WEBHOOK_URL_PREFIX" ]; then
-  echo "ERROR: Required environment variables not set!"
-  echo "Please set:"
-  echo "  - MATRIX_DOMAIN"
-  echo "  - MATRIX_URL"
-  echo "  - WEBHOOK_URL_PREFIX"
-  echo "  - MATRIX_USER_ID"
-  echo "  - MATRIX_AS_TOKEN"
-  echo "  - MATRIX_HS_TOKEN"
-  exit 1
+logging:
+  level: info
+  colorize: false
+
+passFile: /data/passkey.pem
+
+listeners:
+  - port: 9001
+    bindAddress: 0.0.0.0
+    resources:
+      - widgets
+      - webhooks
+
+generic:
+  enabled: true
+  urlPrefix: https://matrix-hookshot-production.up.railway.app/webhook/
+  allowJsTransformationFunctions: true
+  waitForComplete: true
+
+github:
+  enabled: false
+
+gitlab:
+  enabled: false
+
+jira:
+  enabled: false
+
+figma:
+  enabled: false
+
+openproject:
+  enabled: false
+
+widgets:
+  publicUrl: https://matrix-hookshot-production.up.railway.app/widgetapi/v1/static/
+  roomSetupWidget:
+    addOnInvite: true
+  branding:
+    widgetTitle: Hookshot Configuration
+  openIdOverrides:
+    "synapse-production-ea3f.up.railway.app": "https://synapse-production-ea3f.up.railway.app"
+EOF
+
+cat > /data/registration.yml << 'EOF'
+id: matrix-hookshot
+as_token: 7lo0XQLbKRd9PnEiiIv9AIzxg3+FpWmnpAUydjqQTN0=
+hs_token: NP9HAIwk7G9j7j3Ui4Z0MXjeFuP/hOlVD9ZL0ZwdFB8=
+namespaces:
+  rooms: []
+  users:
+    - regex: "@_github_.*:synapse-production-ea3f.up.railway.app"
+      exclusive: false
+    - regex: "@_gitlab_.*:synapse-production-ea3f.up.railway.app"
+      exclusive: false
+    - regex: "@_jira_.*:synapse-production-ea3f.up.railway.app"
+      exclusive: false
+    - regex: "@_webhooks_.*:synapse-production-ea3f.up.railway.app"
+      exclusive: false
+    - regex: "@feeds:synapse-production-ea3f.up.railway.app"
+      exclusive: false
+  aliases:
+    - regex: "#hookshot.*:synapse-production-ea3f.up.railway.app"
+      exclusive: true
+sender_localpart: hookshot
+url: "https://matrix-hookshot-production.up.railway.app"
+rate_limited: false
+de.sorunome.msc2409.push_ephemeral: true
+push_ephemeral: true
+org.matrix.msc3202: true
+EOF
+
+if [ ! -f /data/passkey.pem ]; then
+  openssl genrsa -out /data/passkey.pem 2048
 fi
 
-# Generate config.yml from environment variables if it doesn't exist
-if [ ! -f /data/config.yml ]; then
-  echo "Generating config.yml..."
-
-  cat > /data/config.yml << 'CONFIG_EOF'
+exec node /bin/matrix-hookshot/App/BridgeApp.js /data/config.yml /data/registration.yml
 bridge:
   domain: MATRIX_DOMAIN_PLACEHOLDER
   url: MATRIX_URL_PLACEHOLDER

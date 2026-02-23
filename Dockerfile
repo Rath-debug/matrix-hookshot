@@ -45,13 +45,19 @@ COPY --from=builder /src/lib ./
 COPY --from=builder /src/public ./public
 COPY --from=builder /src/assets ./assets
 
+# Copy production config files
+COPY config.railway.production.yml /data/config.yml
+COPY registration.railway.production.yml /data/registration.yml
+
 # Copy startup script and make it executable
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
+# Create /data directory
+RUN mkdir -p /data
+
 ENV NODE_ENV="development"
 
 EXPOSE 9993
-# EXPOSE 7775
 
 ENTRYPOINT ["/docker-entrypoint.sh"]

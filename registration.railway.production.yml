@@ -1,0 +1,25 @@
+id: matrix-hookshot
+as_token: 7lo0XQLbKRd9PnEiiIv9AIzxg3+FpWmnpAUydjqQTN0=
+hs_token: NP9HAIwk7G9j7j3Ui4Z0MXjeFuP/hOlVD9ZL0ZwdFB8=
+namespaces:
+  rooms: []
+  users:
+    - regex: "@_github_.*:synapse-production-ea3f.up.railway.app"
+      exclusive: false
+    - regex: "@_gitlab_.*:synapse-production-ea3f.up.railway.app"
+      exclusive: false
+    - regex: "@_jira_.*:synapse-production-ea3f.up.railway.app"
+      exclusive: false
+    - regex: "@_webhooks_.*:synapse-production-ea3f.up.railway.app"
+      exclusive: false
+    - regex: "@feeds:synapse-production-ea3f.up.railway.app"
+      exclusive: false
+  aliases:
+    - regex: "#hookshot.*:synapse-production-ea3f.up.railway.app"
+      exclusive: true
+sender_localpart: hookshot
+url: "https://matrix-hookshot-production.up.railway.app"
+rate_limited: false
+de.sorunome.msc2409.push_ephemeral: true
+push_ephemeral: true
+org.matrix.msc3202: true

@@ -1,0 +1,51 @@
+bridge:
+  domain: synapse-production-ea3f.up.railway.app
+  url: https://synapse-production-ea3f.up.railway.app
+  port: 9993
+  bindAddress: 0.0.0.0
+  as_token: 7lo0XQLbKRd9PnEiiIv9AIzxg3+FpWmnpAUydjqQTN0=
+  hs_token: NP9HAIwk7G9j7j3Ui4Z0MXjeFuP/hOlVD9ZL0ZwdFB8=
+  userId: "@hookshot:synapse-production-ea3f.up.railway.app"
+
+logging:
+  level: info
+  colorize: false
+
+passFile: /data/passkey.pem
+
+listeners:
+  - port: 9001
+    bindAddress: 0.0.0.0
+    resources:
+      - widgets
+      - webhooks
+
+generic:
+  enabled: true
+  urlPrefix: https://matrix-hookshot-production.up.railway.app/webhook/
+  allowJsTransformationFunctions: true
+  waitForComplete: true
+
+github:
+  enabled: false
+
+gitlab:
+  enabled: false
+
+jira:
+  enabled: false
+
+figma:
+  enabled: false
+
+openproject:
+  enabled: false
+
+widgets:
+  publicUrl: https://matrix-hookshot-production.up.railway.app/widgetapi/v1/static/
+  roomSetupWidget:
+    addOnInvite: true
+  branding:
+    widgetTitle: Hookshot Configuration
+  openIdOverrides:
+    "synapse-production-ea3f.up.railway.app": "https://synapse-production-ea3f.up.railway.app"

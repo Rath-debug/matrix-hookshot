@@ -45,6 +45,11 @@ COPY --from=builder /src/lib ./
 COPY --from=builder /src/public ./public
 COPY --from=builder /src/assets ./assets
 
+# Create data directory and copy configuration templates
+RUN mkdir -p /data
+COPY config.railway.yml /data/config.yml
+COPY registration.sample.yml /data/registration.yml
+
 ENV NODE_ENV="development"
 
 EXPOSE 9993

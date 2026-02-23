@@ -52,6 +52,6 @@ RUN chmod +x /docker-entrypoint.sh
 ENV NODE_ENV="development"
 
 EXPOSE 9993
-EXPOSE 7775
+# EXPOSE 7775
 
 ENTRYPOINT ["/docker-entrypoint.sh"]

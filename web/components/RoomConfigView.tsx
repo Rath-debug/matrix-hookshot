@@ -9,7 +9,7 @@ import GitLabIcon from "../icons/gitlab.png";
 import JiraIcon from "../icons/jira.png";
 import WebhookIcon from "../icons/webhook.png";
 import OpenProjectIcon from "../icons/openproject.png";
-import { ChevronLeftIcon } from "@vector-im/compound-design-tokens/assets/web/icons";
+import ChevronLeftIcon from "@vector-im/compound-design-tokens/assets/web/icons/chevron-left";
 
 interface IProps {
   supportedServices: { [service: string]: boolean };

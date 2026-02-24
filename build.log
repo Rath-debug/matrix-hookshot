@@ -1,0 +1,23 @@
+yarn run v1.22.22
+$ vite build && node scripts/copy-widget-deps.js
+[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32mΓ£ô[39m 91 modules transformed.
+Γ£ù Build failed in 397ms
+error during build:
+[vite]: Rollup failed to resolve import "@vector-im/compound-design-tokens/assets/web/icons/error-solid" from "C:/Projects/rexform/bot-sdk/matix-bot/matrix-hookshot/node_modules/@vector-im/compound-web/dist/components/Alert/Alert.js".
+This is most likely unintended because it can break your application at runtime.
+If you do want to externalize this module explicitly add it to
+`build.rollupOptions.external`
+    at viteLog (file:///C:/Projects/rexform/bot-sdk/matix-bot/matrix-hookshot/node_modules/vite/dist/node/chunks/config.js:33635:57)
+    at file:///C:/Projects/rexform/bot-sdk/matix-bot/matrix-hookshot/node_modules/vite/dist/node/chunks/config.js:33669:73
+    at onwarn (file:///C:/Projects/rexform/bot-sdk/matix-bot/matrix-hookshot/node_modules/@preact/preset-vite/dist/esm/index.mjs:65:29)
+    at file:///C:/Projects/rexform/bot-sdk/matix-bot/matrix-hookshot/node_modules/vite/dist/node/chunks/config.js:33669:28
+    at onRollupLog (file:///C:/Projects/rexform/bot-sdk/matix-bot/matrix-hookshot/node_modules/vite/dist/node/chunks/config.js:33664:63)
+    at onLog (file:///C:/Projects/rexform/bot-sdk/matix-bot/matrix-hookshot/node_modules/vite/dist/node/chunks/config.js:33467:4)
+    at file:///C:/Projects/rexform/bot-sdk/matix-bot/matrix-hookshot/node_modules/rollup/dist/es/shared/node-entry.js:20958:32
+    at Object.logger [as onLog] (file:///C:/Projects/rexform/bot-sdk/matix-bot/matrix-hookshot/node_modules/rollup/dist/es/shared/node-entry.js:22945:9)
+    at ModuleLoader.handleInvalidResolvedId (file:///C:/Projects/rexform/bot-sdk/matix-bot/matrix-hookshot/node_modules/rollup/dist/es/shared/node-entry.js:21689:26)
+    at file:///C:/Projects/rexform/bot-sdk/matix-bot/matrix-hookshot/node_modules/rollup/dist/es/shared/node-entry.js:21647:26
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

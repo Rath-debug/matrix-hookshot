@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import { AdminAccountData } from "./AdminRoomCommandHandler";
 import {
   AdminRoom,
@@ -37,7 +36,6 @@ import {
   GitLabIssueConnection,
   FigmaFileConnection,
   FeedConnection,
-  SetupConnection,
 } from "./Connections";
 import {
   IGitLabWebhookIssueStateEvent,
@@ -89,6 +87,7 @@ import { promises as fs } from "fs";
 import Metrics from "./Metrics";
 import { FigmaEvent, ensureFigmaWebhooks } from "./figma";
 import { ListenerService } from "./ListenerService";
+import { SetupConnection } from "./Connections/SetupConnection";
 import { JiraOAuthRequestOnPrem } from "./jira/OAuth";
 import {
   GenericWebhookEvent,
@@ -1124,18 +1123,15 @@ export class Bridge {
       }
     }
     if (this.config.widgets) {
-      const appsAndPrefixes =
-        this.listener.getApplicationsPrefixesForResource("widgets");
-      if (appsAndPrefixes.length > 1) {
+      const apps = this.listener.getApplicationsForResource("widgets");
+      if (apps.length > 1) {
         throw Error("You may only bind `widgets` to one listener.");
       }
-      const { app, listenerPrefix } = appsAndPrefixes[0];
       new BridgeWidgetApi(
         this.adminRooms,
         this.config,
         this.storage,
-        app,
-        listenerPrefix,
+        apps[0],
         this.connectionManager,
         this.botUsersManager,
         this.as,
@@ -1420,7 +1416,6 @@ export class Bridge {
           break;
         }
       }
-
       if (
         !handled &&
         this.config.checkPermissionAny(

@@ -11,10 +11,8 @@ import { ConnectionConfigurationProps, RoomConfig } from "./RoomConfig";
 import { InputField, ButtonSet, Button } from "../elements";
 import WebhookIcon from "../../icons/webhook.png";
 import { Alert, ToggleInput } from "@vector-im/compound-web";
-import {
-  InfoIcon,
-  WarningIcon,
-} from "@vector-im/compound-design-tokens/assets/web/icons";
+import InfoIcon from "@vector-im/compound-design-tokens/assets/web/icons/info";
+import WarningIcon from "@vector-im/compound-design-tokens/assets/web/icons/warning";
 import { lazy, Suspense } from "preact/compat";
 import { LoadingSpinner } from "../elements/LoadingSpinner";
 import { Extension } from "@uiw/react-codemirror";

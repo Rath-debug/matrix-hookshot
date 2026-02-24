@@ -8,6 +8,13 @@ export default defineConfig({
   plugins: [preact()],
   root: 'web',
   base: '',
+  resolve: {
+    alias: [
+      // Alias missing icon variants to standard versions
+      { find: /^@vector-im\/compound-design-tokens\/assets\/web\/icons\/error-solid$/, replacement: resolve('node_modules/@vector-im/compound-design-tokens/assets/web/icons/error.js') },
+      { find: /^@vector-im\/compound-design-tokens\/assets\/web\/icons\/warning-solid$/, replacement: resolve('node_modules/@vector-im/compound-design-tokens/assets/web/icons/warning.js') },
+    ]
+  },
   optimizeDeps: {
     include: ['@vector-im/compound-web', '@vector-im/compound-design-tokens'],
   },
@@ -20,18 +27,16 @@ export default defineConfig({
         oauth: resolve('web', 'oauth.html'),
       },
       external: (id) => {
-        // Mark compound CSS and assets as external
-        if (id.includes('@vector-im/compound-web/dist/style.css')) return true
-        if (id.includes('@vector-im/compound-design-tokens/assets/')) return true
+        // Mark compound-design-tokens icons as external since there are missing icons
+        if (id.includes('@vector-im/compound-design-tokens/assets/')) {
+          return true
+        }
         return false
       },
       onwarn: (warning, warn) => {
-        // Suppress unresolved external import warnings for compound packages
-        if (
-          warning.code === 'UNRESOLVED_IMPORT' &&
-          (warning.source?.includes('@vector-im/compound-design-tokens/assets/') ||
-           warning.source?.includes('@vector-im/compound-web/dist/style.css'))
-        ) {
+        // Suppress unresolved import warnings from compound-web
+        if (warning.code === 'UNRESOLVED_IMPORT' &&
+            warning.source?.includes('@vector-im/compound-web')) {
           return
         }
         warn(warning)

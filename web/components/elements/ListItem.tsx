@@ -1,10 +1,8 @@
 import { ComponentChild, FunctionComponent } from "preact";
 import { useState } from "preact/hooks";
 import style from "./ListItem.module.scss";
-import {
-  ChevronDownIcon,
-  ChevronUpIcon,
-} from "@vector-im/compound-design-tokens/assets/web/icons";
+import ChevronDownIcon from "@vector-im/compound-design-tokens/assets/web/icons/chevron-down";
+import ChevronUpIcon from "@vector-im/compound-design-tokens/assets/web/icons/chevron-up";
 
 export const ListItem: FunctionComponent<{ text: ComponentChild }> = ({
   text,

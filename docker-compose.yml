@@ -23,6 +23,7 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "9001:9001"
+      - "9002:9002"
       - "9993:9993"
     volumes:
       - hookshot-data:/data
@@ -31,6 +32,7 @@ services:
       - ./config.yml:/data/config.yml:ro
       - ./registration.yml:/data/registration.yml:ro
       - ./passkey.pem:/data/passkey.pem:ro
+      - ./github-key.pem:/data/github-key.pem:ro
     links:
       - valkey
     command: node /usr/bin/matrix-hookshot/App/BridgeApp.js /data/config.yml /data/registration.yml

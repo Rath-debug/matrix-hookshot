@@ -13,7 +13,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "build:web": "vite build",
+    "build:web": "vite build && node scripts/copy-widget-deps.js",
     "build:app": "tsc --project tsconfig.json",
     "build:app:rs": "napi build --dts ../src/libRs.d.ts --release ./lib",
     "build:app:fix-defs": "ts-node scripts/definitions-fixer.ts src/libRs.d.ts",

@@ -4,11 +4,8 @@ node_modules/
 registration.yml
 tsconfig.tsbuildinfo
 public/
-code.txt
-decribe.txt
-problems.txt
-ai_prompt.txt
 /synapse
+/doc-hookshot
 
 .idea
 # Added by cargo

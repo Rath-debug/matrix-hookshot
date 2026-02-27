@@ -72,6 +72,9 @@ CONFIG_EOF
   sed -i "s|MATRIX_AS_TOKEN_PLACEHOLDER|${MATRIX_AS_TOKEN}|g" /data/config.yml
   sed -i "s|MATRIX_HS_TOKEN_PLACEHOLDER|${MATRIX_HS_TOKEN}|g" /data/config.yml
   sed -i "s|WEBHOOK_URL_PREFIX_PLACEHOLDER|${WEBHOOK_URL_PREFIX}|g" /data/config.yml
+
+  echo "DEBUG: as_token: ${MATRIX_AS_TOKEN}"
+  echo "DEBUG: hs_token: ${MATRIX_HS_TOKEN}"
   sed -i "s|WIDGET_PUBLIC_URL_PLACEHOLDER|${WIDGET_PUBLIC_URL:-$WEBHOOK_URL_PREFIX}|g" /data/config.yml
   sed -i "s|BRIDGE_PORT_PLACEHOLDER|${BRIDGE_PORT:-9993}|g" /data/config.yml
   sed -i "s|BRIDGE_BIND_ADDRESS_PLACEHOLDER|${BRIDGE_BIND_ADDRESS:-0.0.0.0}|g" /data/config.yml
@@ -154,5 +157,8 @@ fi
 
 echo ""
 echo "✓ Configuration complete"
+echo "Loaded tokens:"
+echo "as_token: $(grep 'as_token:' /data/config.yml | awk '{print $2}')"
+echo "hs_token: $(grep 'hs_token:' /data/config.yml | awk '{print $2}')"
 echo "Starting matrix-hookshot bridge..."
 echo ""

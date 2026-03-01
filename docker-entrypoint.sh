@@ -9,45 +9,18 @@ if [ ! -f /data/passkey.pem ]; then
   openssl genrsa -out /data/passkey.pem 2048
 fi
 
+# Expand environment variables in config files
+# Replace ${VAR_NAME} with actual environment variable values
+echo "Expanding environment variables in config.yml..."
+envsubst < /bin/matrix-hookshot/config.railway.production.yml > /data/config.yml
+
+echo "Expanding environment variables in registration.yml..."
+envsubst < /bin/matrix-hookshot/registration.railway.production.yml > /data/registration.yml
+
 echo "Starting matrix-hookshot bridge..."
+echo "Reading config from: /data/config.yml"
+echo "Reading registration from: /data/registration.yml"
 exec node /bin/matrix-hookshot/App/BridgeApp.js /data/config.yml /data/registration.yml
-bridge:
-  domain: MATRIX_DOMAIN_PLACEHOLDER
-  url: MATRIX_URL_PLACEHOLDER
-  port: BRIDGE_PORT_PLACEHOLDER
-  bindAddress: BRIDGE_BIND_ADDRESS_PLACEHOLDER
-  as_token: MATRIX_AS_TOKEN_PLACEHOLDER
-  hs_token: MATRIX_HS_TOKEN_PLACEHOLDER
-  userId: MATRIX_USER_ID_PLACEHOLDER
-  mediaEncryptionUrl: MEDIA_ENCRYPTION_URL_PLACEHOLDER
-
-logging:
-  level: LOG_LEVEL_PLACEHOLDER
-  colorize: LOG_COLORIZE_PLACEHOLDER
-
-passFile: /data/passkey.pem
-
-listeners:
-  - port: 9001
-    bindAddress: 0.0.0.0
-    resources:
-      - widgets
-      - webhooks
-
-generic:
-  enabled: GENERIC_ENABLED_PLACEHOLDER
-  urlPrefix: WEBHOOK_URL_PREFIX_PLACEHOLDER
-  allowJsTransformationFunctions: GENERIC_JS_TRANSFORMS_PLACEHOLDER
-  waitForComplete: GENERIC_WAIT_COMPLETE_PLACEHOLDER
-
-github:
-  enabled: GITHUB_ENABLED_PLACEHOLDER
-
-gitlab:
-  enabled: GITLAB_ENABLED_PLACEHOLDER
-
-jira:
-  enabled: JIRA_ENABLED_PLACEHOLDER
 
 figma:
   enabled: FIGMA_ENABLED_PLACEHOLDER

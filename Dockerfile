@@ -33,7 +33,7 @@ FROM node:22-slim
 
 WORKDIR /bin/matrix-hookshot
 
-RUN apt-get update && apt-get install -y openssl ca-certificates
+RUN apt-get update && apt-get install -y openssl ca-certificates gettext-base
 
 COPY --from=builder /src/yarn.lock /src/package.json ./
 COPY --from=builder /cache/yarn /cache/yarn
@@ -45,9 +45,10 @@ COPY --from=builder /src/lib ./
 COPY --from=builder /src/public ./public
 COPY --from=builder /src/assets ./assets
 
-# Copy production config files
-COPY config.railway.production.yml /data/config.yml
-COPY registration.railway.production.yml /data/registration.yml
+# Copy production config files (with environment variable placeholders)
+# These will be expanded at runtime by docker-entrypoint.sh using envsubst
+COPY config.railway.production.yml /bin/matrix-hookshot/config.railway.production.yml
+COPY registration.railway.production.yml /bin/matrix-hookshot/registration.railway.production.yml
 
 # Copy startup script and make it executable
 COPY docker-entrypoint.sh /docker-entrypoint.sh

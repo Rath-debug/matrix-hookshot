@@ -26,9 +26,12 @@ hs_token:  Z3v5i7o+TyUuQgVBK+xWQFqnngFJBjuc8Gct1w65wcA=
 
 ### 0.1 Synapse Server Access
 - [ ] **Do you have SSH/file access to your Synapse server?**
-  - You CANNOT deploy Hookshot without SSH access to update Synapse's `homeserver.yaml`
-  - If you don't have this, stop here and gain access first
-  - Without access, you cannot register the bridge with Synapse
+  - You need SSH access to update Synapse's `homeserver.yaml`
+  - If YES: Continue with this guide
+  - If NO: Use [INSTRUCTIONS_FOR_SYNAPSE_ADMIN.md](INSTRUCTIONS_FOR_SYNAPSE_ADMIN.md) instead
+    - Share that file with your Synapse administrator
+    - They'll handle the registration for you
+    - You just deploy to Railway and provide them the tokens
 
 ### 0.2 Synapse URL Accessibility
 - [ ] **Is your Synapse URL publicly accessible?**

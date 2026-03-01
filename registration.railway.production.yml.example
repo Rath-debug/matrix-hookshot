@@ -1,3 +1,15 @@
+# registration.railway.production.yml.example
+# TEMPLATE FILE - DO NOT COMMIT SECRETS
+# This file shows the structure. The actual registration.railway.production.yml
+# MUST use environment variables and should NOT be committed to git.
+#
+# How to use:
+# 1. Copy this file to registration.railway.production.yml (in .gitignore)
+# 2. Update with your environment variables (Railway will inject them)
+# 3. OR manually update the placeholder values
+# 4. Copy to your Synapse server
+# 5. Update homeserver.yaml to include it
+
 id: matrix-hookshot
 as_token: ${MATRIX_AS_TOKEN}
 hs_token: ${MATRIX_HS_TOKEN}

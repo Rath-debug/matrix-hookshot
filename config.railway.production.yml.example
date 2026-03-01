@@ -1,0 +1,106 @@
+# config.railway.production.yml.example
+# TEMPLATE FILE - Safe to commit
+# This file shows the structure with environment variables as placeholders.
+# The actual config.railway.production.yml is generated at runtime using these variables.
+#
+# Railway Environment Variables Required:
+# MATRIX_DOMAIN=synapse-production-ea3f.up.railway.app
+# MATRIX_URL=https://synapse-production-ea3f.up.railway.app
+# MATRIX_USER_ID=@hookshot:synapse-production-ea3f.up.railway.app
+# MATRIX_AS_TOKEN=<secure-token>
+# MATRIX_HS_TOKEN=<secure-token>
+# WEBHOOK_URL_PREFIX=https://hookshoot-bot.railway.app/webhook/
+# WIDGET_PUBLIC_URL=https://hookshoot-bot.railway.app/widgetapi/v1/static/
+# LOG_LEVEL=info
+# LOG_COLORIZE=false
+# BRIDGE_PORT=9993
+# BRIDGE_BIND_ADDRESS=0.0.0.0
+# HOOKSHOT_PUBLIC_URL=https://hookshoot-bot.railway.app
+
+bridge:
+  # Your Matrix homeserver configuration (from environment variables)
+  domain: ${MATRIX_DOMAIN}
+  url: ${MATRIX_URL}
+  mediaUrl: ${MATRIX_URL}
+
+  # Bridge service configuration
+  port: ${BRIDGE_PORT:-9993}
+  bindAddress: ${BRIDGE_BIND_ADDRESS:-0.0.0.0}
+
+  # Tokens for secure communication with Synapse (from environment variables)
+  # NEVER hardcode these - always use environment variables
+  as_token: ${MATRIX_AS_TOKEN}
+  hs_token: ${MATRIX_HS_TOKEN}
+  userId: ${MATRIX_USER_ID}
+
+# Logging configuration
+logging:
+  level: ${LOG_LEVEL:-info}
+  colorize: ${LOG_COLORIZE:-false}
+  json: false
+  timestampFormat: HH:mm:ss:SSS
+
+# Encryption key file (must persist between restarts)
+passFile: ./passkey.pem
+
+# Cache configuration (required for token encryption)
+cache:
+  redisUri: redis://localhost:6379
+
+# HTTP Listeners for webhooks, widgets, and metrics
+listeners:
+  # Webhooks and widgets on the same port
+  - port: 9001
+    bindAddress: 0.0.0.0
+    resources:
+      - webhooks
+      - widgets
+
+  # Metrics endpoint (internal)
+  - port: 9002
+    bindAddress: 0.0.0.0
+    resources:
+      - metrics
+
+# Generic webhook configuration
+generic:
+  enabled: true
+  urlPrefix: ${WEBHOOK_URL_PREFIX}
+  allowJsTransformationFunctions: true
+  waitForComplete: true
+
+# Widget configuration
+widgets:
+  publicUrl: ${WIDGET_PUBLIC_URL}
+  roomSetupWidget:
+    addOnInvite: true
+  branding:
+    widgetTitle: Hookshot Configuration
+  openIdOverrides:
+    "${MATRIX_DOMAIN}": "${MATRIX_URL}"
+
+# GitHub integration (optional - uncomment to enable)
+# github:
+#   auth:
+#     id: ${GITHUB_APP_ID}
+#     privateKeyFile: /data/github-key.pem
+#   webhook:
+#     secret: ${GITHUB_WEBHOOK_SECRET}
+#   oauth:
+#     client_id: ${GITHUB_CLIENT_ID}
+#     client_secret: ${GITHUB_CLIENT_SECRET}
+#     redirect_uri: ${WEBHOOK_URL_PREFIX}oauth/
+
+# GitLab integration (optional - uncomment to enable)
+# gitlab:
+#   instances:
+#     gitlab.com:
+#       url: https://gitlab.com
+#   webhook:
+#     secret: ${GITLAB_WEBHOOK_SECRET}
+#     publicUrl: ${WEBHOOK_URL_PREFIX}
+
+# JIRA integration (optional - uncomment to enable)
+# jira:
+#   webhook:
+#     secret: ${JIRA_WEBHOOK_SECRET}

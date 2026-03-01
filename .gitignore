@@ -1,7 +1,9 @@
 config.yml
+registration.yml
+registration.*.yml
+config.*.production.yml
 lib/
 node_modules/
-registration.yml
 tsconfig.tsbuildinfo
 public/
 /synapse

@@ -30,12 +30,14 @@ services:
       - ./contrib/docker/:/contrib:ro
       # Map your local files into the container's /data folder:
       - ./config.yml:/data/config.yml:ro
+      - ./registration.railway.production.yml:/data/registration.railway.production.yml:ro
+      - ./config.railway.production.yml:/data/config.railway.production.yml:ro
       - ./registration.yml:/data/registration.yml:ro
       - ./passkey.pem:/data/passkey.pem:ro
       - ./github-key.pem:/data/github-key.pem:ro
     links:
       - valkey
-    command: node /usr/bin/matrix-hookshot/App/BridgeApp.js /data/config.yml /data/registration.yml
+    command: node /usr/bin/matrix-hookshot/App/BridgeApp.js /data/config.railway.production.yml /data/registration.railway.production.yml
     depends_on:
       valkey:
         condition: service_started

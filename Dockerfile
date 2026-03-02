@@ -24,6 +24,7 @@ RUN yarn --ignore-scripts --pure-lockfile --network-timeout 900000
 
 COPY . ./
 RUN find . -type f -name "*.sh" -exec sed -i 's/\r$//' {} +
+RUN find . -type f -name "*.sh" -exec chmod +x {} +
 RUN yarn install --network-timeout 900000
 RUN yarn build
 

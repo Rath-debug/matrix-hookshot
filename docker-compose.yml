@@ -25,6 +25,8 @@ services:
       - "9001:9001"
       - "9002:9002"
       - "9993:9993"
+    environment:
+      - HOOKSHOT_CONFIG=/data/config.railway.production.yml
     volumes:
       - hookshot-data:/data
       - ./contrib/docker/:/contrib:ro

@@ -29,10 +29,10 @@ services:
       - hookshot-data:/data
       - ./contrib/docker/:/contrib:ro
       # Map your local files into the container's /data folder:
-      - ./config.yml:/data/config.yml:ro
+      # - ./config.yml:/data/config.yml:ro
       - ./registration.railway.production.yml:/data/registration.railway.production.yml:ro
       - ./config.railway.production.yml:/data/config.railway.production.yml:ro
-      - ./registration.yml:/data/registration.yml:ro
+      # - ./registration.yml:/data/registration.yml:ro
       - ./passkey.pem:/data/passkey.pem:ro
       - ./github-key.pem:/data/github-key.pem:ro
     links:

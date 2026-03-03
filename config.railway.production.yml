@@ -1,12 +1,12 @@
 bridge:
-  domain: ${MATRIX_DOMAIN}
-  url: ${MATRIX_URL}
-  mediaUrl: ${MATRIX_URL}
+  domain: "${MATRIX_DOMAIN}"
+  url: "${MATRIX_URL}"
+  mediaUrl: "${MATRIX_URL}"
   port: ${BRIDGE_PORT:-9993}
-  bindAddress: ${BRIDGE_BIND_ADDRESS:-0.0.0.0}
-  as_token: ${MATRIX_AS_TOKEN}
-  hs_token: ${MATRIX_HS_TOKEN}
-  userId: ${MATRIX_USER_ID}
+  bindAddress: "${BRIDGE_BIND_ADDRESS:-0.0.0.0}"
+  as_token: "${MATRIX_AS_TOKEN}"
+  hs_token: "${MATRIX_HS_TOKEN}"
+  userId: "${MATRIX_USER_ID}"
 
 logging:
   level: info
@@ -30,12 +30,12 @@ listeners:
 
 generic:
   enabled: true
-  urlPrefix: ${WEBHOOK_URL_PREFIX}
+  urlPrefix: "${WEBHOOK_URL_PREFIX}"
   allowJsTransformationFunctions: true
   waitForComplete: true
 
 widgets:
-  publicUrl: ${WIDGET_PUBLIC_URL}
+  publicUrl: "${WIDGET_PUBLIC_URL}"
   roomSetupWidget:
     addOnInvite: true
   branding:

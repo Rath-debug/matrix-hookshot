@@ -19,19 +19,19 @@
 
 bridge:
   # Your Matrix homeserver configuration (from environment variables)
-  domain: ${MATRIX_DOMAIN}
-  url: ${MATRIX_URL}
-  mediaUrl: ${MATRIX_URL}
+  domain: "${MATRIX_DOMAIN}"
+  url: "${MATRIX_URL}"
+  mediaUrl: "${MATRIX_URL}"
 
   # Bridge service configuration
   port: ${BRIDGE_PORT:-9993}
-  bindAddress: ${BRIDGE_BIND_ADDRESS:-0.0.0.0}
+  bindAddress: "${BRIDGE_BIND_ADDRESS:-0.0.0.0}"
 
   # Tokens for secure communication with Synapse (from environment variables)
   # NEVER hardcode these - always use environment variables
-  as_token: ${MATRIX_AS_TOKEN}
-  hs_token: ${MATRIX_HS_TOKEN}
-  userId: ${MATRIX_USER_ID}
+  as_token: "${MATRIX_AS_TOKEN}"
+  hs_token: "${MATRIX_HS_TOKEN}"
+  userId: "${MATRIX_USER_ID}"
 
 # Logging configuration
 logging:
@@ -65,13 +65,13 @@ listeners:
 # Generic webhook configuration
 generic:
   enabled: true
-  urlPrefix: ${WEBHOOK_URL_PREFIX}
+  urlPrefix: "${WEBHOOK_URL_PREFIX}"
   allowJsTransformationFunctions: true
   waitForComplete: true
 
 # Widget configuration
 widgets:
-  publicUrl: ${WIDGET_PUBLIC_URL}
+  publicUrl: "${WIDGET_PUBLIC_URL}"
   roomSetupWidget:
     addOnInvite: true
   branding:

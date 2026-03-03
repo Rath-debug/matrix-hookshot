@@ -11,13 +11,13 @@ fi
 
 # Expand environment variables in config files
 # Replace ${VAR_NAME} with actual environment variable values
-echo "Expanding environment variables in config.yml..."
-envsubst < /bin/matrix-hookshot/config.railway.production.yml > /data/config.yml
+echo "Expanding environment variables in config.railway.production.yml..."
+envsubst < /bin/matrix-hookshot/config.railway.production.yml > /data/config.railway.production.yml
 
 echo "Expanding environment variables in registration.yml..."
 envsubst < /bin/matrix-hookshot/registration.railway.production.yml > /data/registration.yml
 
 echo "Starting matrix-hookshot bridge..."
-echo "Reading config from: /data/config.yml"
+echo "Reading config from: /data/config.railway.production.yml"
 echo "Reading registration from: /data/registration.yml"
-exec node /bin/matrix-hookshot/App/BridgeApp.js /data/config.yml /data/registration.yml
+exec node /bin/matrix-hookshot/App/BridgeApp.js /data/config.railway.production.yml /data/registration.yml

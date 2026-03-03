@@ -1,6 +1,7 @@
 id: matrix-hookshot
 as_token: "xCQMUY7OiTqdXFTLP++kbErFIQR4E70ZQgwGNk+UEx8="
 hs_token: "Z3v5i7o+TyUuQgVBK+xWQFqnngFJBjuc8Gct1w65wcA="
+auto_join_rooms: true
 namespaces:
   rooms: []
   users:

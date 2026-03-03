@@ -21,10 +21,11 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+    restart: unless-stopped
     ports:
-      - "9001:9001"
-      - "9002:9002"
-      - "9993:9993"
+      - "9000:9000"   # Webhooks
+      - "9001:9001"   # Metrics
+      - "9002:9002"   # Widgets
     environment:
       - HOOKSHOT_CONFIG=/data/config.railway.production.yml
     volumes:

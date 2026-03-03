@@ -21,16 +21,19 @@ passFile: /data/passkey.pem
 #   redisUri: redis://localhost:6379
 
 listeners:
-  - port: 9001
+  - port: 9000
     bindAddress: 0.0.0.0
     resources:
       - appservice
       - webhooks
-      - widgets
-  - port: 9002
+  - port: 9001
     bindAddress: 0.0.0.0
     resources:
       - metrics
+  - port: 9002
+    bindAddress: 0.0.0.0
+    resources:
+      - widgets
 
 permissions:
   - actor: "@rathdev:synapse-production-ea3f.up.railway.app"
@@ -50,7 +53,6 @@ generic:
 
 widgets:
   enabled: true
-  port: 9002
   addToRooms: true
   publicUrl: "${WIDGET_PUBLIC_URL}"
   roomSetupWidget:

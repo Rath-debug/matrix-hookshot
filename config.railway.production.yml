@@ -23,6 +23,7 @@ listeners:
   - port: 9001
     bindAddress: 0.0.0.0
     resources:
+      - appservice
       - webhooks
       - widgets
   - port: 9002

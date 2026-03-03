@@ -1,7 +1,11 @@
 config.yml
 registration.yml
 registration.*.yml
+!registration.railway.production.yml
+!registration.railway.production.yml.example
 config.*.production.yml
+!config.railway.production.yml
+!config.railway.production.yml.example
 lib/
 node_modules/
 tsconfig.tsbuildinfo

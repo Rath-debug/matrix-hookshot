@@ -33,9 +33,14 @@ listeners:
       - metrics
 
 permissions:
-  "@rathdev:synapse-production-ea3f.up.railway.app": admin
-  "synapse-production-ea3f.up.railway.app": user
-  "*": none
+  - actor: "@rathdev:synapse-production-ea3f.up.railway.app"
+    services:
+      - service: "*"
+        level: admin
+  - actor: "synapse-production-ea3f.up.railway.app"
+    services:
+      - service: "*"
+        level: commands
 
 generic:
   enabled: true
@@ -44,6 +49,9 @@ generic:
   waitForComplete: true
 
 widgets:
+  enabled: true
+  port: 9002
+  addToRooms: true
   publicUrl: "${WIDGET_PUBLIC_URL}"
   roomSetupWidget:
     addOnInvite: true

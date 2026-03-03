@@ -14,8 +14,10 @@ logging:
 
 passFile: /data/passkey.pem
 
-cache:
-  redisUri: redis://localhost:6379
+# Cache configuration (optional - for production, add Redis to Railway)
+# Remove this section or set up a Redis service for distributed caching
+# cache:
+#   redisUri: redis://localhost:6379
 
 listeners:
   - port: 9001

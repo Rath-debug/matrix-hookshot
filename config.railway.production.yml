@@ -7,7 +7,7 @@ bridge:
   as_token: "xCQMUY7OiTqdXFTLP++kbErFIQR4E70ZQgwGNk+UEx8="
   hs_token: "Z3v5i7o+TyUuQgVBK+xWQFqnngFJBjuc8Gct1w65wcA="
   userId: "${MATRIX_USER_ID}"
-  autoJoin: true
+  auto_join_rooms: true
 
 logging:
   level: info
@@ -32,6 +32,11 @@ listeners:
     resources:
       - metrics
 
+permissions:
+  "@rathdev:synapse-production-ea3f.up.railway.app": admin
+  "synapse-production-ea3f.up.railway.app": user
+  "*": none
+
 generic:
   enabled: true
   urlPrefix: "${WEBHOOK_URL_PREFIX}"
@@ -44,5 +49,5 @@ widgets:
     addOnInvite: true
   branding:
     widgetTitle: Hookshot Configuration
-  openIdOverrides:
-    "synapse-production-ea3f.up.railway.app": "https://synapse-production-ea3f.up.railway.app"
+  # openIdOverrides:
+  #   "synapse-production-ea3f.up.railway.app": "https://synapse-production-ea3f.up.railway.app"

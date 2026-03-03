@@ -58,7 +58,7 @@ RUN chmod +x /docker-entrypoint.sh
 # Create /data directory
 RUN mkdir -p /data
 
-ENV NODE_ENV="development"
+ENV NODE_ENV="production"
 
 EXPOSE 9993
 

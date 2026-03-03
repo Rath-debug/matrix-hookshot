@@ -2,7 +2,7 @@
   "name": "matrix-hookshot",
   "description": "A bridge between Matrix and multiple project management services",
   "deploy": {
-    "startCommand": "node /bin/matrix-hookshot/App/BridgeApp.js /data/config.yml /data/registration.yml"
+    "startCommand": "node /bin/matrix-hookshot/App/BridgeApp.js /data/config.railway.production.yml /data/registration.railway.production.yml"
   },
   "volumes": {
     "/data": "matrix-hookshot-data"

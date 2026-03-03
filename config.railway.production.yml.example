@@ -41,7 +41,7 @@ logging:
   timestampFormat: HH:mm:ss:SSS
 
 # Encryption key file (must persist between restarts)
-passFile: ./passkey.pem
+passFile: /data/passkey.pem
 
 # Cache configuration (required for token encryption)
 cache:

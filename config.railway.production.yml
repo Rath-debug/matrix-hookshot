@@ -3,7 +3,7 @@ bridge:
   port: 9993
   url: "${MATRIX_URL}"
   mediaUrl: "${MATRIX_URL}"
-  bindAddress: "${BRIDGE_BIND_ADDRESS:-0.0.0.0}"
+  bindAddress: "${BRIDGE_BIND_ADDRESS}"
   as_token: "xCQMUY7OiTqdXFTLP++kbErFIQR4E70ZQgwGNk+UEx8="
   hs_token: "Z3v5i7o+TyUuQgVBK+xWQFqnngFJBjuc8Gct1w65wcA="
   userId: "${MATRIX_USER_ID}"
@@ -54,7 +54,7 @@ generic:
 widgets:
   enabled: true
   addToRooms: true
-  publicUrl: "${WIDGET_PUBLIC_URL}"
+  publicUrl: "Hookshot Configuration"
   roomSetupWidget:
     addOnInvite: true
   branding:

@@ -54,7 +54,7 @@ generic:
 widgets:
   enabled: true
   addToRooms: true
-  publicUrl: "Hookshot Configuration"
+  publicUrl: "${WIDGET_PUBLIC_URL}"
   roomSetupWidget:
     addOnInvite: true
   branding:

@@ -149,6 +149,25 @@ export class Bridge {
     this.as.expressAppInstance.get("/ready", (_, res) =>
       res.status(this.ready ? 200 : 500).send({ ready: this.ready }),
     );
+    this.as.expressAppInstance.post("/_matrix/app/v1/ping", (req, res) => {
+      const authorization = req.get("authorization");
+      const bearer = authorization?.startsWith("Bearer ")
+        ? authorization.substring(7)
+        : undefined;
+      const queryToken = req.query["access_token"];
+      const accessToken =
+        typeof queryToken === "string" ? queryToken : bearer;
+      const expectedToken =
+        (this.config.bridge as { hs_token?: string }).hs_token ||
+        process.env.MATRIX_HS_TOKEN;
+      if (expectedToken && accessToken !== expectedToken) {
+        return res.status(401).json({
+          errcode: "M_UNAUTHORIZED",
+          error: "Invalid access token",
+        });
+      }
+      return res.status(200).json({});
+    });
   }
 
   public async stop() {

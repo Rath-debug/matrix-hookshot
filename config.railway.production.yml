@@ -20,16 +20,16 @@ passFile: /data/passkey.pem
 #   redisUri: redis://localhost:6379
 
 listeners:
-  - port: 9000
+  - port: 9993
     bindAddress: 0.0.0.0
     resources:
       - appservice
-      - webhooks
-      - widgets
-  - port: 9001
+  - port: 9000
     bindAddress: 0.0.0.0
     resources:
-      - metrics
+      - webhooks
+      - widgets
+      
   # - port: 9002
   #   bindAddress: 0.0.0.0
   #   resources:

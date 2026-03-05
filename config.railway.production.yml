@@ -3,8 +3,8 @@ bridge:
   port: 9993
   url: "${MATRIX_URL}"
   bindAddress: 0.0.0.0
-  as_token: "xCQMUY7OiTqdXFTLP++kbErFIQR4E70ZQgwGNk+UEx8="
-  hs_token: "Z3v5i7o+TyUuQgVBK+xWQFqnngFJBjuc8Gct1w65wcA="
+  as_token: "${AS_TOKEN}"
+  hs_token: "${HS_TOKEN}"
   userId: "${MATRIX_USER_ID}"
   auto_join_rooms: true
 
@@ -34,15 +34,15 @@ listeners:
     resources:
       - widgets
 
-permissions:
-  - actor: "@rathdev:synapse-production-ea3f.up.railway.app"
-    services:
-      - service: "*"
-        level: admin
-  - actor: "synapse-production-ea3f.up.railway.app"
-    services:
-      - service: "*"
-        level: commands
+# permissions:
+#   - actor: "@rathdev:synapse-production-ea3f.up.railway.app"
+#     services:
+#       - service: "*"
+#         level: admin
+#   - actor: "synapse-production-ea3f.up.railway.app"
+#     services:
+#       - service: "*"
+#         level: commands
 
 generic:
   enabled: true

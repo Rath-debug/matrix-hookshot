@@ -6,12 +6,16 @@
   },
   "ports": [
     {
-      "containerPort": 9993,
-      "name": "bridge"
+      "containerPort": 9000,
+      "name": "appservice"
     },
     {
-      "containerPort": 7775,
+      "containerPort": 9001,
       "name": "metrics"
+    },
+    {
+      "containerPort": 9002,
+      "name": "widgets"
     }
   ],
   "environmentVariables": {

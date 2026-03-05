@@ -1,6 +1,6 @@
 id: matrix-hookshot
-as_token: "xCQMUY7OiTqdXFTLP++kbErFIQR4E70ZQgwGNk+UEx8="
-hs_token: "Z3v5i7o+TyUuQgVBK+xWQFqnngFJBjuc8Gct1w65wcA="
+as_token: "${AS_TOKEN}"
+hs_token: "${HS_TOKEN}"
 auto_join_rooms: true
 namespaces:
   rooms: []
@@ -19,7 +19,7 @@ namespaces:
     - regex: "#hookshot.*:synapse-production-ea3f.up.railway.app"
       exclusive: true
 sender_localpart: hookshot
-url: "http://matrix-hookshot.railway.internal:9001"
+url: "http://matrix-hookshot.railway.internal:9000"
 rate_limited: false
 de.sorunome.msc2409.push_ephemeral: true
 push_ephemeral: true

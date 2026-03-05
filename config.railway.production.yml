@@ -1,5 +1,6 @@
 bridge:
   domain: "${MATRIX_DOMAIN}"
+  port: 9994
   url: "${MATRIX_URL}"
   bindAddress: 0.0.0.0
   as_token: "${AS_TOKEN}"

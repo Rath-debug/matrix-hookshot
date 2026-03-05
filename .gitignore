@@ -9,7 +9,6 @@ config.*.production.yml
 lib/
 node_modules/
 tsconfig.tsbuildinfo
-public/
 /synapse
 /synapse1
 /doc-hookshot

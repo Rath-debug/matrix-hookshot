@@ -12,7 +12,7 @@ fi
 # Expand environment variables in configuration templates
 echo "Expanding environment variables in templates..."
 envsubst < /bin/matrix-hookshot/config.railway.production.yml > /data/config.railway.production.yml
-envsubst < /bin/matrix-hookshot/registration.railway.production.yml > /data/registration.yml
+envsubst < /bin/matrix-hookshot/registration.railway.production.yml > /data/registration.railway.production.yml
 
 echo "Starting matrix-hookshot bridge..."
-exec node /bin/matrix-hookshot/App/BridgeApp.js /data/config.railway.production.yml /data/registration.yml
+exec node /bin/matrix-hookshot/App/BridgeApp.js /data/config.railway.production.yml /data/registration.railway.production.yml

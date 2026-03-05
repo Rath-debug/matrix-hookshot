@@ -27,6 +27,7 @@ RUN find . -type f -name "*.sh" -exec sed -i 's/\r$//' {} +
 RUN find . -type f -name "*.sh" -exec chmod +x {} +
 RUN yarn install --network-timeout 900000
 RUN yarn build
+RUN yarn build:web
 
 
 # Stage 1: The actual container
@@ -38,6 +39,8 @@ RUN apt-get update && apt-get install -y openssl ca-certificates gettext-base
 
 COPY --from=builder /src/yarn.lock /src/package.json ./
 COPY --from=builder /cache/yarn /cache/yarn
+COPY --from=builder /src/dist ./dist
+COPY --from=builder /src/public ./public
 RUN yarn config set yarn-offline-mirror /cache/yarn
 
 RUN yarn --network-timeout 900000 --production --pure-lockfile && yarn cache clean

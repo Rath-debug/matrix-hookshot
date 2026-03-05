@@ -2,7 +2,6 @@ bridge:
   domain: "${MATRIX_DOMAIN}"
   port: 9993
   url: "${MATRIX_URL}"
-  mediaUrl: "${MATRIX_URL}"
   bindAddress: 0.0.0.0
   as_token: "xCQMUY7OiTqdXFTLP++kbErFIQR4E70ZQgwGNk+UEx8="
   hs_token: "Z3v5i7o+TyUuQgVBK+xWQFqnngFJBjuc8Gct1w65wcA="

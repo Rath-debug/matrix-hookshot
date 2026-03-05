@@ -1,6 +1,5 @@
 bridge:
   domain: "${MATRIX_DOMAIN}"
-  port: 9993
   url: "${MATRIX_URL}"
   bindAddress: 0.0.0.0
   as_token: "${AS_TOKEN}"
@@ -29,11 +28,6 @@ listeners:
     resources:
       - webhooks
       - widgets
-      
-  # - port: 9002
-  #   bindAddress: 0.0.0.0
-  #   resources:
-  #     -
 
 # permissions:
 #   - actor: "@rathdev:synapse-production-ea3f.up.railway.app"

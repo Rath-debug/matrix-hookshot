@@ -42,8 +42,8 @@ listeners:
 
 generic:
   enabled: true
-  urlPrefix: "${WEBHOOK_URL_PREFIX}"
   allowJsTransformationFunctions: true
+  urlPrefix: "${WEBHOOK_URL_PREFIX}"
   enableHttpGet: true
 
 widgets:

@@ -19,7 +19,7 @@ namespaces:
     - regex: "#hookshot.*:synapse-production-ea3f.up.railway.app"
       exclusive: true
 sender_localpart: hookshot
-url: "http://matrix-hookshot.railway.internal:9000/"
+url: "http://matrix-hookshot.railway.internal:9993"
 rate_limited: false
 de.sorunome.msc2409.push_ephemeral: true
 push_ephemeral: true

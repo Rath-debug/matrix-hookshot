@@ -43,7 +43,6 @@ generic:
   enabled: true
   urlPrefix: "${WEBHOOK_URL_PREFIX}"
   allowJsTransformationFunctions: true
-  waitForComplete: true
   enableHttpGet: true
 
 widgets:

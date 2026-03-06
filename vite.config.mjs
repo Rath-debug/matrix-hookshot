@@ -10,9 +10,8 @@ export default defineConfig({
   base: '',
   resolve: {
     alias: [
-      // Alias missing icon variants to standard versions
-      { find: /^@vector-im\/compound-design-tokens\/assets\/web\/icons\/error-solid$/, replacement: resolve('node_modules/@vector-im/compound-design-tokens/assets/web/icons/error.js') },
-      { find: /^@vector-im\/compound-design-tokens\/assets\/web\/icons\/warning-solid$/, replacement: resolve('node_modules/@vector-im/compound-design-tokens/assets/web/icons/warning.js') },
+      // Alias any compound-design-tokens icon imports to a fallback to prevent resolution errors
+      { find: /^@vector-im\/compound-design-tokens\/assets\/web\/icons\//, replacement: resolve('node_modules/@vector-im/compound-design-tokens/assets/web/icons/info.js') },
     ]
   },
   optimizeDeps: {

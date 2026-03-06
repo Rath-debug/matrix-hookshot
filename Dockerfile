@@ -39,7 +39,6 @@ RUN apt-get update && apt-get install -y openssl ca-certificates gettext-base
 
 COPY --from=builder /src/yarn.lock /src/package.json ./
 COPY --from=builder /cache/yarn /cache/yarn
-COPY --from=builder /src/dist ./dist
 COPY --from=builder /src/public ./public
 RUN yarn config set yarn-offline-mirror /cache/yarn
 

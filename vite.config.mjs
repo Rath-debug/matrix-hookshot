@@ -9,12 +9,6 @@ export default defineConfig({
   root: 'web',
   base: '',
   logLevel: 'warn',
-  optimizeDeps: {
-    exclude: [
-      '@vector-im/compound-web',
-      '@vector-im/compound-design-tokens'
-    ],
-  },
   build: {
     sourcemap: 'inline',
     outDir: '../public',
@@ -23,7 +17,6 @@ export default defineConfig({
         main: resolve('web', 'index.html'),
         oauth: resolve('web', 'oauth.html'),
       },
-      external: (id) => id.startsWith('@'),
       plugins: [
         alias({
           entries: [

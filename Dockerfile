@@ -41,7 +41,7 @@ COPY --from=builder /cache/yarn /cache/yarn
 COPY --from=builder /src/public ./public
 RUN yarn config set yarn-offline-mirror /cache/yarn
 
-RUN yarn --network-timeout 900000 --production --pure-lockfile && yarn cache clean
+RUN yarn --network-timeout 900000 --production --pure-lockfile --ignore-scripts && yarn cache clean
 
 COPY --from=builder /src/lib ./
 COPY --from=builder /src/public ./public

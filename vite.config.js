@@ -1,10 +1,10 @@
-const { defineConfig } = require('vite')
-const preact = require('@preact/preset-vite')
-const { resolve } = require('path')
-const alias = require('@rollup/plugin-alias')
+import { defineConfig } from 'vite'
+import preact from '@preact/preset-vite'
+import { resolve } from 'path'
+import alias from '@rollup/plugin-alias'
 
 // https://vitejs.dev/config/
-module.exports = defineConfig({
+export default defineConfig({
   plugins: [preact()],
   root: 'web',
   base: '',

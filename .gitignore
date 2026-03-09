@@ -6,7 +6,36 @@ registration.*.yml
 config.*.production.yml
 !config.railway.production.yml
 !config.railway.production.yml.example
-lib/
+# Ignore compiled TypeScript output in lib, but keep pre-built binaries
+lib/*.js
+lib/*.js.map
+lib/*.d.ts
+lib/App/
+lib/Connections/
+lib/admin/
+lib/api/
+lib/config/
+lib/feeds/
+lib/figma/
+lib/generic/
+lib/github/
+lib/gitlab/
+lib/grants/
+lib/hound/
+lib/jira/
+lib/libRs.js
+lib/openproject/
+lib/queue/
+lib/serviceBridge/
+lib/signatureVerifier/
+lib/stores/
+lib/tokens/
+lib/uploads/
+lib/webhook/
+lib/widgets/
+lib/spec/
+# But keep pre-built native modules
+!lib/*.node
 node_modules/
 tsconfig.tsbuildinfo
 /synapse

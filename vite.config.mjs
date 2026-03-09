@@ -14,15 +14,12 @@ export default defineConfig({
   root: 'web',
   base: '',
   resolve: {
-    alias: [
-      {
-        // 1. Map the base directory for the icons
-        '@vector-im/compound-design-tokens/assets/web/icons': resolve(__dirname, 'node_modules/@vector-im/compound-design-tokens/assets/web/icons'),
-
-        // 2. Map the root of the tokens if needed
-        '@vector-im/compound-design-tokens': resolve(__dirname, 'node_modules/@vector-im/compound-design-tokens'),
-      },
-    ]
+    alias: {
+      'react': 'preact/compat',
+      'react-dom': 'preact/compat',
+      'react-dom/test-utils': 'preact/test-utils',
+      'react/jsx-runtime': 'preact/jsx-runtime',
+    }
   },
   optimizeDeps: {
     include: ['@vector-im/compound-web', '@vector-im/compound-design-tokens'],
@@ -50,16 +47,9 @@ export default defineConfig({
         }
         warn(warning)
       },
-      plugins: [
-        alias({
-          entries: [
-            { find: 'react', replacement: 'preact/compat' },
-            { find: 'react-dom/test-utils', replacement: 'preact/test-utils' },
-            { find: 'react-dom', replacement: 'preact/compat' },
-            { find: 'react/jsx-runtime', replacement: 'preact/jsx-runtime' }
-          ]
-        })
-      ]
+      output: {
+        manualChunks: undefined,
+      }
     },
     emptyOutDir: true,
   },

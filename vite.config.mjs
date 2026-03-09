@@ -35,7 +35,13 @@ export default defineConfig({
         main: resolve(__dirname, 'web/index.html'),
         oauth: resolve(__dirname, 'web/oauth.html'),
       },
-      // Note: We intentionally DO NOT use 'external' here so icons are bundled
+      external: (id) => {
+        // Mark compound-design-tokens icons as external since some are missing
+        if (id.includes('@vector-im/compound-design-tokens/assets/')) {
+          return true
+        }
+        return false
+      },
       onwarn: (warning, warn) => {
         if (warning.code === 'UNRESOLVED_IMPORT' &&
             warning.source?.includes('@vector-im/compound-web')) {

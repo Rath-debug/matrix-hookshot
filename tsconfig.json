@@ -1,6 +1,8 @@
 {
   "extends": "@tsconfig/node22/tsconfig.json",
   "compilerOptions": {
+    // "allowImportingTsExtensions": true,
+    // "noEmit": true,
     "incremental": true,
     "declaration": false,
     "outDir": "./lib",
@@ -30,6 +32,8 @@
   ],
   "exclude": [
       "tests/**/*",
-      "web/**/*"
+      "web/**/*",
+      "node_modules",
+      "**/*.spec.ts"
   ]
 }

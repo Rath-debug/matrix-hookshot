@@ -20,12 +20,11 @@ WORKDIR /src
 
 COPY package.json yarn.lock ./
 RUN yarn config set yarn-offline-mirror /cache/yarn
-RUN yarn --ignore-scripts --pure-lockfile --network-timeout 900000
+RUN yarn --ignore-scripts --network-timeout 900000
 
 COPY . ./
 RUN find . -type f -name "*.sh" -exec sed -i 's/\r$//' {} +
 RUN find . -type f -name "*.sh" -exec chmod +x {} +
-RUN yarn install --offline --network-timeout 900000
 RUN yarn build
 RUN yarn build:web
 

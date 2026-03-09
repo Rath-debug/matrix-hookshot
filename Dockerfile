@@ -37,7 +37,9 @@ WORKDIR /bin/matrix-hookshot
 RUN apt-get update && apt-get install -y openssl ca-certificates gettext-base
 
 COPY --from=builder /src/yarn.lock /src/package.json ./
-COPY --from=builder /src/node_modules ./node_modules
+COPY --from=builder /src/scripts ./scripts
+RUN yarn --network-timeout 900000 --production --pure-lockfile && yarn cache clean
+
 COPY --from=builder /src/lib ./
 COPY --from=builder /src/public ./public
 COPY --from=builder /src/assets ./assets

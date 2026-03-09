@@ -4,8 +4,8 @@
 # Stage 0: Build the thing
 FROM node:22-slim AS builder
 
-# Add git to the install list here!
-RUN apt-get update && apt-get install -y build-essential cmake curl pkg-config libssl-dev git
+# Add git and python3 to the install list here!
+RUN apt-get update && apt-get install -y build-essential cmake curl pkg-config libssl-dev git python3
 
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal
 ENV PATH="/root/.cargo/bin:${PATH}"
@@ -27,7 +27,6 @@ RUN find . -type f -name "*.sh" -exec sed -i 's/\r$//' {} +
 RUN find . -type f -name "*.sh" -exec chmod +x {} +
 RUN yarn install --network-timeout 900000
 RUN yarn build
-RUN yarn build:web
 
 
 # Stage 1: The actual container

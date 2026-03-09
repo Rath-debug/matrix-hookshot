@@ -10,7 +10,7 @@ const __dirname = dirname(__filename)
 export default defineConfig({
   plugins: [preact()],
   // 'web' is the root for the frontend source files
-  root: resolve(__dirname),
+  root: resolve(__dirname, 'web'),
   base: '',
   resolve: {
     alias: {
@@ -28,12 +28,12 @@ export default defineConfig({
   build: {
     sourcemap: 'inline',
     // Moves finished build from /web/dist to the root /public folder
-    outDir: resolve(__dirname, '../public'),
+    outDir: resolve(__dirname, 'public'),
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        oauth: resolve(__dirname, 'oauth.html'),
+        main: resolve(__dirname, 'web/index.html'),
+        oauth: resolve(__dirname, 'web/oauth.html'),
       },
       // Note: We intentionally DO NOT use 'external' here so icons are bundled
       onwarn: (warning, warn) => {

@@ -1,16 +1,16 @@
 import { defineConfig } from 'vite'
 import preact from '@preact/preset-vite'
-import { resolve } from 'path'
+import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { dirname } from 'path'
 
+// Create __dirname for ESM (Vite standard)
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [preact()],
-  root: 'web',
+  // 'web' is the root for the frontend source files
+  root: resolve(__dirname),
   base: '',
   resolve: {
     alias: {
@@ -18,7 +18,8 @@ export default defineConfig({
       'react-dom': 'preact/compat',
       'react-dom/test-utils': 'preact/test-utils',
       'react/jsx-runtime': 'preact/jsx-runtime',
-      '@vector-im/compound-design-tokens': resolve(__dirname, '../node_modules/@vector-im/compound-design-tokens'),
+      // CRITICAL: Bridge to the root node_modules for icons/tokens
+      '@vector-im/compound-design-tokens': resolve(__dirname, 'node_modules/@vector-im/compound-design-tokens'),
     }
   },
   optimizeDeps: {
@@ -26,32 +27,23 @@ export default defineConfig({
   },
   build: {
     sourcemap: 'inline',
-    outDir: '../public',
+    // Moves finished build from /web/dist to the root /public folder
+    outDir: resolve(__dirname, '../public'),
+    emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'web', 'index.html'),
-        oauth: resolve(__dirname, 'web', 'oauth.html'),
+        main: resolve(__dirname, 'index.html'),
+        oauth: resolve(__dirname, 'oauth.html'),
       },
-      // external: (id) => {
-      //   // Mark compound-design-tokens icons as external since there are missing icons
-      //   if (id.includes('@vector-im/compound-design-tokens/assets/')) {
-      //     return true
-      //   }
-      //   return false
-      // },
+      // Note: We intentionally DO NOT use 'external' here so icons are bundled
       onwarn: (warning, warn) => {
-        // Suppress unresolved import warnings from compound-web
         if (warning.code === 'UNRESOLVED_IMPORT' &&
             warning.source?.includes('@vector-im/compound-web')) {
           return
         }
         warn(warning)
       },
-      output: {
-        manualChunks: undefined,
-      }
     },
-    emptyOutDir: true,
   },
   css: {
     preprocessorOptions: {

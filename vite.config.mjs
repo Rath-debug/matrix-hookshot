@@ -10,6 +10,7 @@ export default defineConfig({
   base: '',
   optimizeDeps: {
     exclude: ['@vector-im/compound-web'],
+    include: ['@vector-im/compound-web', '@vector-im/compound-design-tokens'],
   },
   build: {
     sourcemap: 'inline',
@@ -18,6 +19,11 @@ export default defineConfig({
       input: {
         main: resolve('web', 'index.html'),
         oauth: resolve('web', 'oauth.html'),
+      },
+      external: (id) => {
+        if (id.includes('@vector-im/compound-web/dist/style.css')) return true
+        if (id.includes('@vector-im/compound-design-tokens/assets/')) return true
+        return false
       },
       plugins: [
         alias({
@@ -31,6 +37,14 @@ export default defineConfig({
       ]
     },
     emptyOutDir: true,
+    onwarn: (warning, warn) => {
+      if (warning.code === 'UNRESOLVED_IMPORT' &&
+          (warning.source?.includes('@vector-im/compound-design-tokens/assets/') ||
+           warning.source?.includes('@vector-im/compound-web/dist/style.css'))) {
+        return
+      }
+      warn(warning)
+    },
   },
   css: {
     preprocessorOptions: {

@@ -10,12 +10,14 @@ export default defineConfig({
   base: '',
   resolve: {
     alias: [
-          {
-            // Maps the entire icons directory instead of a single file
-            find: '@vector-im/compound-design-tokens/assets/web/icons',
-            replacement: resolve(__dirname, 'node_modules/@vector-im/compound-design-tokens/assets/web/icons')
-          },
-        ]
+      {
+        // 1. Map the base directory for the icons
+        '@vector-im/compound-design-tokens/assets/web/icons': resolve(__dirname, 'node_modules/@vector-im/compound-design-tokens/assets/web/icons'),
+
+        // 2. Map the root of the tokens if needed
+        '@vector-im/compound-design-tokens': resolve(__dirname, 'node_modules/@vector-im/compound-design-tokens'),
+      },
+    ]
   },
   optimizeDeps: {
     include: ['@vector-im/compound-web', '@vector-im/compound-design-tokens'],
@@ -25,16 +27,16 @@ export default defineConfig({
     outDir: '../public',
     rollupOptions: {
       input: {
-        main: resolve('web', 'index.html'),
-        oauth: resolve('web', 'oauth.html'),
+        main: resolve(__dirname, 'index.html'),
+        oauth: resolve(__dirname, 'oauth.html'),
       },
-      external: (id) => {
-        // Mark compound-design-tokens icons as external since there are missing icons
-        if (id.includes('@vector-im/compound-design-tokens/assets/')) {
-          return true
-        }
-        return false
-      },
+      // external: (id) => {
+      //   // Mark compound-design-tokens icons as external since there are missing icons
+      //   if (id.includes('@vector-im/compound-design-tokens/assets/')) {
+      //     return true
+      //   }
+      //   return false
+      // },
       onwarn: (warning, warn) => {
         // Suppress unresolved import warnings from compound-web
         if (warning.code === 'UNRESOLVED_IMPORT' &&

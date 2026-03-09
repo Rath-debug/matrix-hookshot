@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import preact from '@preact/preset-vite'
 import { resolve } from 'path'
-import alias from '@rollup/plugin-alias'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
 
@@ -29,8 +28,8 @@ export default defineConfig({
     outDir: '../public',
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        oauth: resolve(__dirname, 'oauth.html'),
+        main: resolve(__dirname, 'web', 'index.html'),
+        oauth: resolve(__dirname, 'web', 'oauth.html'),
       },
       // external: (id) => {
       //   // Mark compound-design-tokens icons as external since there are missing icons

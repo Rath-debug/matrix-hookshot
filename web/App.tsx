@@ -47,7 +47,7 @@ function assertParam(fragment: URLSearchParams, name: string) {
   return val;
 }
 
-export default class App extends Component<void, IState> {
+export default class App extends Component<{}, IState> {
   constructor() {
     super();
     this.state = {

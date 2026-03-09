@@ -34,11 +34,12 @@ export default function AdminSettings(props: IProps) {
   }, [setBusy, setActiveSections, props.bridgeApi]);
   const onSectionClick = useCallback(
     (event: MouseEvent) => {
-      const key = parseInt(
-        (event.target as HTMLElement).parentElement.getAttribute("sectionkey"),
-        10,
-      );
-      setCurrentTab(key as AdminSettingsTab);
+      const parentElement = (event.target as HTMLElement).parentElement;
+      const sectionKey = parentElement?.getAttribute("sectionkey");
+      if (sectionKey) {
+        const key = parseInt(sectionKey, 10);
+        setCurrentTab(key as AdminSettingsTab);
+      }
     },
     [setCurrentTab],
   );

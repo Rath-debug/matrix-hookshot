@@ -28,12 +28,12 @@
     "useUnknownInCatchVariables": false
   },
   "include": [
-      "src/**/*"
+    "src/**/*"
   ],
   "exclude": [
-      "tests/**/*",
-      "web/**/*",
-      "node_modules",
-      "**/*.spec.ts"
+    "tests/**/*",
+    "web/**/*",
+    "node_modules",
+    "**/*.spec.ts"
   ]
 }

@@ -2,10 +2,10 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "lib": ["es2019", "dom", "dom.iterable"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "target": "es2019",
-    "types": ["preact"],
     /* noEmit - Vite builds (emits) files, not tsc. */
     "noEmit": true,
     /* Additional Options */
@@ -17,6 +17,9 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "typeRoots": ["./typings"]
-  }
+    "useUnknownInCatchVariables": false,
+    "isolatedModules": true
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

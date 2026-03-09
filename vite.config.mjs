@@ -18,6 +18,7 @@ export default defineConfig({
       'react-dom': 'preact/compat',
       'react-dom/test-utils': 'preact/test-utils',
       'react/jsx-runtime': 'preact/jsx-runtime',
+      '@vector-im/compound-design-tokens': resolve(__dirname, '../node_modules/@vector-im/compound-design-tokens'),
     }
   },
   optimizeDeps: {

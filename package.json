@@ -25,6 +25,7 @@
     "clean:app:rs": "rimraf src/libRs.d.ts target/",
     "clean:docs": "mdbook clean",
     "clean": "scripts/clean.sh",
+    "postinstall": "node scripts/patch-compound-icons.cjs",
     "prepare": "yarn build",
     "start": "node --require source-map-support/register lib/App/BridgeApp.js",
     "start:app": "node --require source-map-support/register lib/App/BridgeApp.js",

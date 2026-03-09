@@ -10,9 +10,12 @@ export default defineConfig({
   base: '',
   resolve: {
     alias: [
-      // Alias any compound-design-tokens icon imports to a fallback to prevent resolution errors
-      { find: /^@vector-im\/compound-design-tokens\/assets\/web\/icons\//, replacement: resolve('node_modules/@vector-im/compound-design-tokens/assets/web/icons/info.js') },
-    ]
+          {
+            // Maps the entire icons directory instead of a single file
+            find: '@vector-im/compound-design-tokens/assets/web/icons',
+            replacement: resolve(__dirname, 'node_modules/@vector-im/compound-design-tokens/assets/web/icons')
+          },
+        ]
   },
   optimizeDeps: {
     include: ['@vector-im/compound-web', '@vector-im/compound-design-tokens'],

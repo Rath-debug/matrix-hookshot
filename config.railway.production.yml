@@ -54,5 +54,5 @@ widgets:
     addOnInvite: true
   branding:
     widgetTitle: Hookshot Configuration
-  # openIdOverrides:
-  #   "synapse-production-ea3f.up.railway.app": "https://synapse-production-ea3f.up.railway.app"
+  openIdOverrides:
+    "synapse-production-ea3f.up.railway.app": "https://synapse-production-ea3f.up.railway.app"

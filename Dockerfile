@@ -6,14 +6,14 @@ FROM node:22-slim AS builder
 
 WORKDIR /src
 
-# Copy package files first
-COPY package.json yarn.lock ./
-
-# Install system dependencies
+# Install system dependencies first (needed for building)
 RUN apt-get update && apt-get install -y build-essential cmake curl pkg-config libssl-dev git python3
 
-# Install Rust
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal
+# Install Rust via rustup
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y --profile minimal && \
+    . $HOME/.cargo/env && \
+    cargo --version
+
 ENV PATH="/root/.cargo/bin:${PATH}"
 
 # arm64 builds consume a lot of memory if `CARGO_NET_GIT_FETCH_WITH_CLI` is not
@@ -21,15 +21,21 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 ARG CARGO_NET_GIT_FETCH_WITH_CLI=false
 ENV CARGO_NET_GIT_FETCH_WITH_CLI=$CARGO_NET_GIT_FETCH_WITH_CLI
 
-# Set up yarn cache and install dependencies
-RUN yarn config set yarn-offline-mirror /cache/yarn
-RUN yarn --ignore-scripts --network-timeout 900000
+# Copy package files
+COPY package.json yarn.lock ./
 
-# Copy source code
+# Set up yarn cache and install dependencies (skip scripts since source isn't copied yet)
+RUN yarn config set yarn-offline-mirror /cache/yarn && \
+    yarn --ignore-scripts --network-timeout 900000
+
+# Copy entire source code
 COPY . ./
-RUN find . -type f -name "*.sh" -exec sed -i 's/\r$//' {} +
-RUN find . -type f -name "*.sh" -exec chmod +x {} +
-RUN yarn install --network-timeout 900000
+
+# Fix line endings and permissions for shell scripts
+RUN find . -type f -name "*.sh" -exec sed -i 's/\r$//' {} + && \
+    find . -type f -name "*.sh" -exec chmod +x {} +
+
+# Build everything (Rust native module + TypeScript)
 RUN yarn build
 
 

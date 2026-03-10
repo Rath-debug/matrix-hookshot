@@ -1856,7 +1856,7 @@
   resolved "https://registry.npmjs.org/@vector-im/compound-design-tokens/-/compound-design-tokens-2.1.3.tgz"
   integrity sha512-U4UF7MVguENf0lQnkU2a9p/3llTsLXzbzmFFOxi0h6ny2igNxZj/kROP/jXTxxV9xD4TNn3z098Bos4J/qJpBA==
 
-"@vector-im/compound-web@7.12.0":
+"@vector-im/compound-web@^7.3.0":
   version "7.12.0"
   resolved "https://registry.npmjs.org/@vector-im/compound-web/-/compound-web-7.12.0.tgz"
   integrity sha512-eGsJhouuBJKnh53yOfcakithgFUzaviDR9dWnIs3ULMK97D+XkXe82M/ULg+dFwbTxHKcnIfy3V7H1pcEjFVcQ==

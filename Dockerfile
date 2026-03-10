@@ -5,6 +5,8 @@
 FROM node:22-slim AS builder
 
 # Add git and python3 to the install list here!
+RUN yarn install --network-timeout 900000
+RUN yarn build
 RUN apt-get update && apt-get install -y build-essential cmake curl pkg-config libssl-dev git python3
 
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal
@@ -43,6 +45,8 @@ RUN yarn --network-timeout 900000 --production --pure-lockfile && yarn cache cle
 COPY --from=builder /src/lib ./
 COPY --from=builder /src/public ./public
 COPY --from=builder /src/assets ./assets
+COPY --from=builder /src/*.node ./
+COPY --from=builder /src/public ./public
 
 # Copy production config files (with environment variable placeholders)
 # These will be expanded at runtime by docker-entrypoint.sh using envsubst

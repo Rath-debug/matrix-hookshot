@@ -1,23 +1,20 @@
 # Stage 0: Build the thing
 # Need debian based image to build the native rust module
 # as musl doesn't support cdylib
-# Stage 0: Build the thing
 FROM node:22-slim AS builder
 
 WORKDIR /src
 
-# Install system dependencies first
-RUN apt-get update && apt-get install -y build-essential cmake curl pkg-config libssl-dev git python3
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential cmake curl pkg-config libssl-dev git python3 && \
+    rm -rf /var/lib/apt/lists/*
 
-# Install Rust - rustup installs to ~/.cargo/bin
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal && \
-    . $HOME/.cargo/env && \
-    cargo --version
-
-# Set PATH so cargo is available in all subsequent RUN commands
+# Install Rust and set PATH so cargo is available in all subsequent RUN commands
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal
 ENV PATH="/root/.cargo/bin:${PATH}"
 
-# Verify Rust/Cargo is available
+# Verify Rust installation
 RUN cargo --version && rustc --version
 
 # arm64 builds consume a lot of memory if `CARGO_NET_GIT_FETCH_WITH_CLI` is not
@@ -25,10 +22,8 @@ RUN cargo --version && rustc --version
 ARG CARGO_NET_GIT_FETCH_WITH_CLI=false
 ENV CARGO_NET_GIT_FETCH_WITH_CLI=$CARGO_NET_GIT_FETCH_WITH_CLI
 
-# Copy package files
+# Copy package files and install JavaScript dependencies
 COPY package.json yarn.lock ./
-
-# Install JavaScript dependencies (skip build scripts for now)
 RUN yarn config set yarn-offline-mirror /cache/yarn && \
     yarn --ignore-scripts --network-timeout 900000
 
@@ -39,7 +34,7 @@ COPY . ./
 RUN find . -type f -name "*.sh" -exec sed -i 's/\r$//' {} + && \
     find . -type f -name "*.sh" -exec chmod +x {} +
 
-# Full build: cargo build for Rust, then TypeScript compilation
+# Build everything (Rust native module + TypeScript)
 RUN yarn build
 
 
@@ -48,7 +43,8 @@ FROM node:22-slim
 
 WORKDIR /bin/matrix-hookshot
 
-RUN apt-get update && apt-get install -y openssl ca-certificates gettext-base
+RUN apt-get update && apt-get install -y openssl ca-certificates gettext-base && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /src/yarn.lock /src/package.json ./
 COPY --from=builder /src/scripts ./scripts
@@ -58,7 +54,6 @@ COPY --from=builder /src/lib ./
 COPY --from=builder /src/public ./public
 COPY --from=builder /src/assets ./assets
 COPY --from=builder /src/*.node ./
-COPY --from=builder /src/public ./public
 
 # Copy production config files (with environment variable placeholders)
 # These will be expanded at runtime by docker-entrypoint.sh using envsubst

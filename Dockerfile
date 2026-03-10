@@ -4,11 +4,15 @@
 # Stage 0: Build the thing
 FROM node:22-slim AS builder
 
-# Add git and python3 to the install list here!
-RUN yarn install --network-timeout 900000
-RUN yarn build
+WORKDIR /src
+
+# Copy package files first
+COPY package.json yarn.lock ./
+
+# Install system dependencies
 RUN apt-get update && apt-get install -y build-essential cmake curl pkg-config libssl-dev git python3
 
+# Install Rust
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal
 ENV PATH="/root/.cargo/bin:${PATH}"
 
@@ -17,13 +21,11 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 ARG CARGO_NET_GIT_FETCH_WITH_CLI=false
 ENV CARGO_NET_GIT_FETCH_WITH_CLI=$CARGO_NET_GIT_FETCH_WITH_CLI
 
-
-WORKDIR /src
-
-COPY package.json yarn.lock ./
+# Set up yarn cache and install dependencies
 RUN yarn config set yarn-offline-mirror /cache/yarn
 RUN yarn --ignore-scripts --network-timeout 900000
 
+# Copy source code
 COPY . ./
 RUN find . -type f -name "*.sh" -exec sed -i 's/\r$//' {} +
 RUN find . -type f -name "*.sh" -exec chmod +x {} +

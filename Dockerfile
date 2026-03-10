@@ -10,7 +10,9 @@ WORKDIR /src
 RUN apt-get update && apt-get install -y build-essential cmake curl pkg-config libssl-dev git python3
 
 # Install Rust - rustup installs to ~/.cargo/bin
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal && \
+    . $HOME/.cargo/env && \
+    cargo --version
 
 # Set PATH so cargo is available in all subsequent RUN commands
 ENV PATH="/root/.cargo/bin:${PATH}"

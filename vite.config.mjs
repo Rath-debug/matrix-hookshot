@@ -18,8 +18,7 @@ export default defineConfig({
         oauth: resolve('web', 'oauth.html'),
       },
       external: (id) => {
-        // Externalize compound design token assets that are resolved at runtime
-        if (id.includes('@vector-im/compound-design-tokens/assets/')) return true
+        // Bundle all compound packages instead of externalizing
         return false
       },
       plugins: [

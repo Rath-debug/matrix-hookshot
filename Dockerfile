@@ -10,12 +10,16 @@ RUN apt-get update && apt-get install -y \
     build-essential cmake curl pkg-config libssl-dev git python3 && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Rust and set PATH so cargo is available in all subsequent RUN commands
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal
-ENV PATH="/root/.cargo/bin:${PATH}"
+# Install Rust with proper shell sourcing
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal && \
+    chmod +x /root/.cargo/bin/* && \
+    /root/.cargo/bin/rustc --version && \
+    /root/.cargo/bin/cargo --version
 
-# Verify Rust installation
-RUN cargo --version && rustc --version
+# Set PATH for all subsequent RUN commands - Rust must be in PATH
+ENV PATH="/root/.cargo/bin:${PATH}" \
+    RUST_HOME="/root/.cargo" \
+    RUSTUP_HOME="/root/.rustup"
 
 # arm64 builds consume a lot of memory if `CARGO_NET_GIT_FETCH_WITH_CLI` is not
 # set to true, so we expose it as a build-arg.
@@ -34,8 +38,10 @@ COPY . ./
 RUN find . -type f -name "*.sh" -exec sed -i 's/\r$//' {} + && \
     find . -type f -name "*.sh" -exec chmod +x {} +
 
-# Build everything (Rust native module + TypeScript)
-RUN yarn build
+# Verify cargo is available before building, then build everything
+RUN cargo --version && \
+    rustc --version && \
+    yarn build
 
 
 # Stage 1: The actual container

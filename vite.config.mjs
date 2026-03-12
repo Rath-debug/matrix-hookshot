@@ -3,6 +3,17 @@ import preact from '@preact/preset-vite'
 import { resolve } from 'path'
 import alias from '@rollup/plugin-alias'
 
+// Plugin to handle external compound asset imports
+const compoundAssetsPlugin = {
+  name: 'handle-compound-assets',
+  resolveId(id) {
+    if (id.includes('@vector-im/compound-design-tokens/assets/')) {
+      // Return external module marker for these assets
+      return { id, external: true }
+    }
+  }
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [preact()],
@@ -18,10 +29,12 @@ export default defineConfig({
         oauth: resolve('web', 'oauth.html'),
       },
       external: (id) => {
-        // Bundle all compound packages instead of externalizing
+        // Externalize compound design token assets that are resolved at runtime
+        if (id.includes('@vector-im/compound-design-tokens/assets/')) return true
         return false
       },
       plugins: [
+        compoundAssetsPlugin,
         alias({
           entries: [
             { find: 'react', replacement: 'preact/compat' },
@@ -34,12 +47,12 @@ export default defineConfig({
     },
     emptyOutDir: true,
     onwarn: (warning, warn) => {
-      // Suppress unresolved import warnings for compound packages
-      if ((warning.code === 'UNRESOLVED_IMPORT' || warning.code === 'THIS_IS_UNDEFINED') &&
-          (warning.source?.includes('@vector-im/') ||
-           warning.importer?.includes('@vector-im/') ||
-           warning.source?.includes('@vector-im/compound-design-tokens/assets/'))) {
-        return
+      // Suppress warnings for externalized compound packages
+      if (warning.code === 'UNRESOLVED_IMPORT') {
+        if (warning.source?.includes('@vector-im/compound-design-tokens/assets/') ||
+            warning.id?.includes('@vector-im/compound-design-tokens/assets/')) {
+          return // Suppress - these are externalized and resolved at runtime
+        }
       }
       warn(warning)
     },

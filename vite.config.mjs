@@ -17,6 +17,11 @@ export default defineConfig({
         main: resolve('web', 'index.html'),
         oauth: resolve('web', 'oauth.html'),
       },
+      external: (id) => {
+        // Externalize compound design token assets that are resolved at runtime
+        if (id.includes('@vector-im/compound-design-tokens/assets/')) return true
+        return false
+      },
       plugins: [
         alias({
           entries: [
@@ -31,9 +36,10 @@ export default defineConfig({
     emptyOutDir: true,
     onwarn: (warning, warn) => {
       // Suppress unresolved import warnings for compound packages
-      if (warning.code === 'UNRESOLVED_IMPORT' &&
+      if ((warning.code === 'UNRESOLVED_IMPORT' || warning.code === 'THIS_IS_UNDEFINED') &&
           (warning.source?.includes('@vector-im/') ||
-           warning.importer?.includes('@vector-im/'))) {
+           warning.importer?.includes('@vector-im/') ||
+           warning.source?.includes('@vector-im/compound-design-tokens/assets/'))) {
         return
       }
       warn(warning)

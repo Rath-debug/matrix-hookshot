@@ -1,10 +1,13 @@
 #!/usr/bin/env node
 
 const { execSync, spawnSync } = require('child_process');
+const os = require('os');
 
 function commandExists(cmd) {
   try {
-    const result = spawnSync('where', [cmd], {
+    // Use 'which' on Unix/Linux/macOS, 'where' on Windows
+    const checkCmd = os.platform() === 'win32' ? 'where' : 'which';
+    const result = spawnSync(checkCmd, [cmd], {
       stdio: 'pipe',
       shell: true,
       windowsHide: true
